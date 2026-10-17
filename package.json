@@ -1,0 +1,19 @@
+{
+  "name": "ai-necessities",
+  "version": "1.0.0",
+  "description": "Plug-and-play AI agent template for coding projects. Copies .agents/ into your project so you can run /setup, /pm, /review, /test, and /security-audit.",
+  "main": "bin/init.js",
+  "bin": {
+    "ai-necessities": "bin/init.js"
+  },
+  "files": [
+    "template.agents/",
+    "AGENTS.md-template.md",
+    "bin/"
+  ],
+  "scripts": {
+    "init": "node bin/init.js"
+  },
+  "keywords": ["ai", "agents", "template", "coding", "automation"],
+  "license": "MIT"
+}
