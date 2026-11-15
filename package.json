@@ -1,13 +1,14 @@
 {
   "name": "ai-necessities",
-  "version": "1.0.0",
-  "description": "Plug-and-play AI agent template for coding projects. Copies .agents/ into your project so you can run /setup, /pm, /review, /test, and /security-audit.",
+  "version": "2.1.0",
+  "description": "Stack-neutral AI agent setup with .agents workflows and an optional Claude Code adapter.",
   "main": "bin/init.js",
   "bin": {
     "ai-necessities": "bin/init.js"
   },
   "files": [
     "template.agents/",
+    "template.claude/",
     "AGENTS.md-template.md",
     "bin/"
   ],

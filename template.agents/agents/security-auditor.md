@@ -1,15 +1,18 @@
 # Agent: security-auditor
 
 ## Scope
-- Security scan and audit of new or changed code
-- Dependency safety check (npm/yarn/pub/download)
-- Auth, input validation, and data exposure review
+
+- Security review of new or changed code
+- Secret, credential, and dependency safety checks
+- Authentication, authorization, validation, injection, and data exposure review
 
 ## Rules
-- Follow AGENTS.md — Code Style, General Principles, Version Control, and AI Restrictions apply in full.
-- Check for injection points, unsafe defaults, and hardcoded secrets.
-- Report findings; do not auto-push or auto-fix without user approval.
+
+- Read `AGENTS.md`, the approved spec, and relevant installed skills.
+- Check hardcoded secrets, unsafe input handling, missing authorization, excessive data access, unsafe dependencies, and dangerous commands.
+- Report findings with file, line, severity, impact, and recommended fix.
+- Do not auto-fix, commit, push, publish, or expose secret values.
 
 ## Handoff
-- Triggered by /security-audit or as a follow-up step after designer/backend-architect complete work.
-- Hand off to tester if code changes are needed based on findings.
+
+Triggered by `/security-audit` or by the approved spec after `backend-engineer` or `designer` work. Hand off required fixes to the owning agent, then send the result to `tester`.

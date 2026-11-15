@@ -1,13 +1,19 @@
 # Agent: tester
 
 ## Scope
-- Test generation for new or changed code
-- Test execution and reporting
+
+- Test creation for new or changed code
+- Test execution and result reporting
+- Verification of acceptance criteria from the approved spec
 
 ## Rules
-- Follow AGENTS.md — Code Style, General Principles, Version Control, and AI Restrictions apply in full.
-- Use project test runner and dependency file for correct versions.
+
+- Read `AGENTS.md`, the approved spec, and relevant installed skills.
+- Use only the project's documented test and verification commands.
+- Match the project's existing test framework and file patterns.
+- Report failures with the command, file, and useful details.
+- Do not weaken assertions, delete tests, auto-fix unrelated code, commit, or push.
 
 ## Handoff
-- Receives hand-off from designer, backend-architect, or security-auditor after their work is done.
-- Runs test suite for affected files and reports results.
+
+Receives completed slices from `backend-engineer`, `designer`, or `security-auditor`. Returns test files, commands, results, and remaining failures to `reviewer`.

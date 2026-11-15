@@ -6,19 +6,13 @@ Generate and run tests for new or changed code.
 
 On every `/test` invocation:
 
-1. **Identify** changed or new files from the task scope.
-2. **Generate** tests for those files if they don't exist, matching the project's test framework and patterns.
-3. **Run** the project's test suite for affected files using the commands from root `AGENTS.md` (e.g. `npm test`, per-folder test scripts).
-4. **Report** results — pass/fail per test file, failures with details.
-5. **No auto-commit activity logs and docs.** Do not auto-push any branch.
-6. **Hand off back to reviewer or the originating agent** if failures need fixing.
-
-## Rules
-
-- Follow AGENTS.md Code Style and General Principles.
-- Use the project's test runner and dependency file for correct versions.
-- Report failures; do not auto-push.
+1. Read `AGENTS.md`, the active spec, and relevant installed skills.
+2. Identify changed or new files from the task scope.
+3. Generate tests only when the project's patterns and acceptance criteria support them.
+4. Run the documented test commands for the affected files. Do not invent a test command.
+5. Report each test file and command as `PASS`, `FAIL`, or `BLOCKED`, with useful failure details.
+6. Hand failures back to the owning agent. Do not weaken assertions, delete tests, auto-fix unrelated code, commit, or push.
 
 ## Output
 
-Test results: which files passed, which failed, and failure details. If no tests exist yet, report "No tests found for <files>."
+Return test results and remaining failures. If no applicable test exists, report `No applicable test found` and explain why.

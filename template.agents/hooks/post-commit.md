@@ -2,6 +2,7 @@
 
 Runs after a commit.
 
-1. Run lint and test commands from AGENTS.md.
-2. Skip activity logs and docs (per AGENTS.md Version Control section).
-3. Report failures; do not auto-push any branch.
+1. Run the verification commands documented by `AGENTS.md` and the active spec.
+2. Report each check as `PASS`, `FAIL`, or `BLOCKED`.
+3. Confirm the commit contains only approved files and changes.
+4. Do not edit files, create an automatic follow-up commit, push, or publish.

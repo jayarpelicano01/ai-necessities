@@ -1,18 +1,33 @@
 # Agent Settings
 
 ## Writing style
-- No em dashes in any writing. Zero tolerance.
+
+- No em dashes in any writing.
 - Concise, short, direct answers unless detail is requested.
-- Plain language by default; avoid jargon unless asked for technical depth.
+- Plain language by default. Avoid jargon unless technical depth is needed.
+
+## Workflow
+
+- Read `AGENTS.md` before project work.
+- Read the approved spec before execution.
+- Load only installed skills named by the spec.
+- Use `spec-workflow` for planning and execution handoffs.
+- Use `find-skills` only during setup or an approved rescan, not during task execution.
 
 ## Markdown
-- Kebab-case naming for markdown files (e.g. `some-description-changes.md`).
-- Comments: one-liner, one sentence.
-- No emojis or special characters in comments.
 
-## Model & context
-- Default model: match project complexity; prefer faster/cheaper models for routine edits, larger models for architecture and review.
-- Context limit: summarize before approaching limits; keep conversation focused on the current task.
+- Use the project's existing naming convention.
+- Comments are one sentence when comments are needed.
+- Keep instructions in their most specific owner. Link to shared skills instead of copying them.
+
+## Model and context
+
+- Match model depth to project complexity.
+- Summarize before approaching context limits.
+- Keep each agent focused on its assigned ownership boundary.
 
 ## Safety
-- Follow AGENTS.md Version Control and AI Restrictions (no auto-push, run major changes by user first, check download safety, no external libraries unless necessary).
+
+- Follow `AGENTS.md` and the active spec.
+- Apply `pre-edit` and `pre-command` hooks.
+- Never expose secrets, push, publish, or run destructive remote commands without explicit approval.

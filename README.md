@@ -1,63 +1,95 @@
 # ai-necessities
 
-> **Work in progress.** This template is continuously getting improved. Expect changes, additions, and refinements as it evolves.
+> Work in progress. This template is continuously improved.
 
-A plug-and-play AI agent template for coding projects. Copy `.agents/` into any project and you get a full agent setup: `/setup`, `/pm`, `/review`, `/test`, and `/security-audit`. Stack-agnostic — works with React, Next.js, Node/Express, Flutter, or anything else.
+A plug-and-play AI agent setup for coding projects. Copy `.agents/` into a project and get a safe workflow for project discovery, task specs, delegated implementation, testing, review, verification, and commits.
 
 ## What's inside
 
-```
+```text
 .ai-necessities/
-├── AGENTS.md-template.md        # Root agent instructions (copy into your project)
-├── template.agents/             # The actual .agents/ folder to drop into projects
-│   ├── commands/                # /setup, /init, /pm, /review, /test, /security-audit
-│   ├── agents/                  # designer, backend-architect, reviewer, tester, security-auditor, researcher
-│   ├── hooks/                   # pre-edit, post-commit safety hooks
-│   ├── skills/                  # skill-discovery (finds and installs relevant skills)
-│   ├── settings/                # agent-config (writing style, safety, model rules)
-│   └── overlays/                # react-express, react-next, react-native-expo-supabase
-├── bin/init.js                  # npm installable: copies .agents/ into your project
+├── AGENTS.md-template.md
+├── CLAUDE.md
+├── template.agents/
+│   ├── commands/                # setup, init, plan-to-spec, execute-spec, verify, and workflow commands
+│   ├── agents/                  # backend-engineer, designer, tester, reviewer, security-auditor, researcher
+│   ├── hooks/                   # edit, command, and post-commit safety rules
+│   ├── skills/                  # find-skills and the shared spec-workflow
+│   ├── settings/                # writing, context, and safety settings
+│   └── overlays/                # optional stack notes
+├── template.claude/              # thin Claude Code adapters and guard
+├── bin/init.js
 ├── package.json
 └── .gitignore
 ```
 
 ## Quick start
 
-### Option 1: Manual copy (no install)
+### Manual copy
 
-1. Copy `template.agents/` into your project as `.agents/`.
-2. Run `/setup` once. It scans your project, generates `AGENTS.md`, and proposes project-fit agents/commands/skills.
-3. Approve the proposal before anything is created.
+1. Copy `template.agents/` into the project as `.agents/`.
+2. Run `/setup` once.
+3. Review the detected project profile and the proposed skills.
+4. Approve only the skills you want installed locally.
 
-### Option 2: npm install
+### npm install
 
 ```bash
 npm install ai-necessities
-npx ai-necessities   # installs .agents/ into your project
+npx ai-necessities
 # Then run /setup
 ```
 
+To add Claude Code support without overwriting existing project files:
+
+```bash
+npx ai-necessities --claude
+```
+
+The Claude adapter creates `CLAUDE.md`, `.claude/commands/`, `.claude/skills/`, and `.claude/settings.json` only when those files do not already exist. The `.agents/` files remain the source of truth. Claude-specific files are thin adapters, so workflow rules do not fork between runtimes.
+
 ## Workflow
 
-When a task arrives:
+1. `/setup` runs `/init`, builds the project profile, and uses the local `find-skills` skill to search for matching skills.
+2. `/plan-to-spec <task>` creates a complete draft with ownership, permissions, skills, dependencies, handoffs, acceptance criteria, and verification.
+3. After approval, `/plan-to-spec` writes `docs/specs/YYYY-MM-DD-NNN-<kebab-slug>.md` and stops.
+4. A fresh context runs `/execute-spec <path>` to validate the spec and summon only the listed subagents.
+5. `tester` runs after implementation. `reviewer` runs last. `security-auditor` runs when the spec requires it.
+6. `/verify` runs only documented project checks.
+7. `/commit` prepares focused commits and waits for approval before committing. It never pushes.
 
-1. **Analyze** what areas it touches (UI, database, API, security, tests).
-2. **Route** to the right agent — designer, backend-architect, tester, security-auditor, or reviewer.
-3. **If multiple areas** (e.g. creating tables AND redesigning the main screen), agents co-work in parallel on their slice.
-4. **Tester follows up** — generates and runs tests for everything that changed.
-5. **Reviewer checks** — reviews the combined output against AGENTS.md.
-6. **Approval gate** — stop before implementing. Present the plan and wait for explicit approval. No auto-execute, no auto-push.
+## Primary agents
+
+- `backend-engineer` owns backend services, APIs, databases, integrations, and backend tests.
+- `designer` owns frontend screens, components, styles, design tokens, and frontend tests.
+- Cross-layer work is divided by ownership. Neither primary agent silently edits the other layer.
+
+## Supporting agents
+
+- `tester` creates and runs tests after implementation.
+- `reviewer` performs the final read-only review.
+- `security-auditor` checks secrets, permissions, input handling, dependencies, and data exposure.
+- `researcher` performs read-only investigation when a factual question remains unresolved.
+
+## Skill discovery
+
+The local `find-skills` skill is the single skill-search workflow. It derives specific searches from `AGENTS.md`, proposes matching skills, and installs only approved skills into the project-local `.agents/skills/` directory. It never installs silently and never removes existing skills automatically.
+
+## Safety hooks
+
+Hooks define `allow`, `ask`, and `deny` actions for edits and commands. They protect secrets, require approval for risky operations, prevent pushes, and enforce the ownership boundaries in the approved spec. When the runtime cannot enforce a text hook, the agent must stop and report the violation instead of claiming it was blocked.
+
+## Claude Code compatibility
+
+Claude Code users can run `npx ai-necessities --claude`. The adapter points Claude to the same `AGENTS.md`, `.agents/commands/`, and `.agents/skills/` files used by other runtimes. It also installs project-level permission rules and a small executable guard for pushes, destructive commands, secret files, Git metadata, and dependency folders. Existing `CLAUDE.md` and `.claude/` files are preserved.
 
 ## Stack overlays
 
-Drop these into `template.agents/overlays/` before running `/setup`:
-- `react-express`
-- `react-next`
-- `react-native-expo-supabase`
+The overlays are optional reference notes for common stacks. They do not replace repository-specific discovery. Project facts come from the generated `AGENTS.md` and installed skills.
 
 ## Status
 
-**Work in progress.** Continuously getting improved. Commands, agents, and overlays will be added and refined over time.
+Work in progress. Commands, agents, hooks, and skills will continue to be refined.
 
 ## License
 

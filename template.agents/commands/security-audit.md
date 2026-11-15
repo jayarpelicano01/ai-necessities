@@ -4,14 +4,13 @@ Scan new or changed code for security issues.
 
 ## Steps
 
-1. Identify changed or new files from the task scope.
-2. Check for hardcoded secrets, credentials, or API keys.
-3. Check for injection points (SQL, command, script) in user-facing input.
-4. Check data exposure — least privilege: is more data returned than needed?
-5. Check dependency safety — run the download safety check from AGENTS.md AI Restrictions.
-6. Report findings with severity and recommended fix.
-7. Do not auto-fix or auto-push; stop for user approval before any changes.
+1. Read `AGENTS.md`, the active spec, and relevant installed skills.
+2. Identify changed or new files from the task scope.
+3. Check hardcoded secrets, credentials, tokens, unsafe input handling, injection points, missing authorization, unsafe dependencies, and excessive data exposure.
+4. Use the project's documented dependency and verification commands. Do not invent a download-safety command.
+5. Report file, line, severity, impact, and recommended fix.
+6. Do not expose secret values, auto-fix, commit, push, or publish. Stop for approval before changes.
 
 ## Output
 
-A short list of findings: file, line, issue, severity, fix. If none, report "No security issues found."
+Return a short findings list. If none are found, report `No security issues found.`
