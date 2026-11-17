@@ -27,16 +27,25 @@ process.stdin.on('end', () => {
     );
   };
 
-  if (tool === 'Bash') {
+  if (tool === 'Bash' || tool === 'PowerShell') {
     const command = String(toolInput.command || '');
     const normalized = command.toLowerCase();
 
+    // Matches git plus global options such as `-C <repo>` before the subcommand.
+    const git = String.raw`\bgit(?:\s+(?:-c\s+\S+|--[\w-]+(?:=\S+)?))*\s+`;
+
     const blockedCommands = [
-      [/\bgit\s+push\b/, 'git push is blocked by the Claude adapter.'],
+      [
+        new RegExp(git + String.raw`push\b[^;|&\n]*(\s-[a-z]*f\b|\s--force|\s\+\S)`),
+        'Force-push is blocked by the Claude adapter.',
+      ],
       [/\bnpm\s+publish\b/, 'npm publish is blocked by the Claude adapter.'],
-      [/(rm\s+-rf|remove-item\s+.*-recurse)/, 'Destructive deletion is blocked by the Claude adapter.'],
-      [/\bgit\s+reset\s+--hard\b/, 'git reset --hard is blocked by the Claude adapter.'],
-      [/\bgit\s+clean\s+-fdx\b/, 'git clean -fdx is blocked by the Claude adapter.'],
+      [
+        /(\brm\s+-[a-z]*(rf|fr)|\b(rm|del|rmdir|rd|ri|remove-item)\b[^;|&\n]*\s-r(ecurse)?\b)/,
+        'Destructive deletion is blocked by the Claude adapter.',
+      ],
+      [new RegExp(git + String.raw`reset\s+--hard\b`), 'git reset --hard is blocked by the Claude adapter.'],
+      [new RegExp(git + String.raw`clean\s+-[a-z]*f`), 'git clean -f is blocked by the Claude adapter.'],
       [/(supabase\s+db\s+push|terraform\s+destroy)/, 'Destructive remote changes are blocked by the Claude adapter.'],
     ];
 

@@ -2,26 +2,39 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "deny": [
-      "Bash(git push *)",
       "Bash(npm publish *)",
       "Bash(rm -rf *)",
       "Bash(git reset --hard *)",
-      "Bash(git clean -fdx *)"
+      "Bash(git clean -fdx *)",
+      "PowerShell(npm publish *)",
+      "PowerShell(git reset --hard *)",
+      "PowerShell(git clean -fdx *)"
     ],
     "ask": [
       "Bash(npx skills add *)",
       "Bash(npm install *)",
       "Bash(npm ci *)",
       "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(firebase deploy *)",
       "Bash(supabase db reset *)",
       "Bash(supabase db push *)",
-      "Bash(terraform destroy *)"
+      "Bash(terraform destroy *)",
+      "PowerShell(npx skills add *)",
+      "PowerShell(npm install *)",
+      "PowerShell(npm ci *)",
+      "PowerShell(git commit *)",
+      "PowerShell(git push *)",
+      "PowerShell(firebase deploy *)",
+      "PowerShell(supabase db reset *)",
+      "PowerShell(supabase db push *)",
+      "PowerShell(terraform destroy *)"
     ]
   },
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|Edit|Write|NotebookEdit",
+        "matcher": "Bash|PowerShell|Edit|Write|NotebookEdit",
         "hooks": [
           {
             "type": "command",

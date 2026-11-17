@@ -1,7 +1,7 @@
 {
   "name": "ai-necessities",
-  "version": "2.1.0",
-  "description": "Stack-neutral AI agent setup with .agents workflows and an optional Claude Code adapter.",
+  "version": "2.2.0",
+  "description": "Stack-neutral AI agent setup with .agents workflows and optional generated Claude Code wiring.",
   "main": "bin/init.js",
   "bin": {
     "ai-necessities": "bin/init.js"

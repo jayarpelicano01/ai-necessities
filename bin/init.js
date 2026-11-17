@@ -53,7 +53,7 @@ function main() {
     }
 
     copyDir(CLAUDE_TEMPLATE_DIR, process.cwd(), { skipExisting: true });
-    console.log('Claude Code adapter installed without overwriting existing files.');
+    console.log('Claude Code wiring installed without overwriting existing files.');
   }
 
   console.log('');
@@ -64,6 +64,7 @@ function main() {
     console.log('  3. Add Claude Code support later with: npx ai-necessities --claude');
   } else {
     console.log('  3. Open Claude Code and review CLAUDE.md and .claude/.');
+    console.log('  4. After editing .agents/, run: node .claude/scripts/build-from-agents.mjs');
   }
 }
 

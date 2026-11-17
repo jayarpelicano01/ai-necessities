@@ -15,11 +15,12 @@ Runs before a shell, package-manager, database, deployment, or version-control c
 - Resetting or deleting local data.
 - Starting a service that changes local state.
 - Publishing, deploying, or changing hosted resources.
+- `git push` (only through `/pr` after its approval gate).
 - Any command not documented by the repository or spec.
 
 ## Deny
 
-- `git push` and force-push.
+- Force-push (`--force`, `-f`, `--force-with-lease`, `+refspec`).
 - Printing or exporting secret values.
 - Reading or editing `.env*` except `.env.example`, credentials, private keys, or tokens.
 - Destructive remote database or hosting commands.

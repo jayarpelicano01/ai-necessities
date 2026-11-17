@@ -1,24 +1,8 @@
-# AI-Necessities Claude Code adapter
+@AGENTS.md
+@.agents/settings/agent-config.md
 
-Read `@AGENTS.md` before project work when that file exists. The canonical workflow is in `.agents/`. This file is only the Claude Code adapter.
+# Claude Code wiring
 
-## Source of truth
-
-- Project facts, commands, and conventions: `AGENTS.md`
-- Shared workflow rules: `.agents/skills/spec-workflow/SKILL.md`
-- Skill discovery: `.agents/skills/find-skills/SKILL.md`
-- Agent roles: `.agents/agents/`
-- Safety policy: `.agents/hooks/`
-- Claude permission rules and executable guard: `.claude/settings.json` and `.claude/hooks/guard.js`
-
-Do not duplicate the full `.agents` instructions here. Read the matching canonical file when a command or agent is used.
-
-## Claude workflow
-
-- Use `/setup` to initialize the project and discover skills.
-- Use `/plan-to-spec <task>` for non-trivial work. It writes an approved spec and stops.
-- Use `/execute-spec <path>` from a fresh context to execute an approved spec.
-- Use `/verify` before reporting completion.
-- Use `/commit` only after its approval gate. Never push.
-
-The files under `.claude/commands/` and `.claude/skills/` are thin adapters. If an adapter and a canonical `.agents` file disagree, follow the `.agents` file and update the adapter.
+- `.agents/` is the source of truth. `.claude/commands/`, `.claude/agents/`, and `.claude/skills/` are generated from it: edit `.agents/`, then run `node .claude/scripts/build-from-agents.mjs`. Never edit the generated files directly.
+- `.claude/settings.json` and `.claude/hooks/guard.js` are hand-maintained and enforce the `.agents/hooks/` policy.
+- Workflow: `/setup` once, `/plan-to-spec <task>` for non-trivial work, `/execute-spec <path>` from a fresh context, `/verify` before reporting completion, `/commit` after its approval gate, `/pr` to ship branches (approval gates), `/jira-next` to pick Jira work and `/jira-done` to close merged tickets (Jira projects only). Never push without `/pr` approval.
